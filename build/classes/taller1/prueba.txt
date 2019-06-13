@@ -1,12 +1,10 @@
-1777*
-#*1
-*#06#
-a123
-12345
-este es un
-ejemplo
-de
-analisis
-lexico
-con
-JFlex
+1
+Elmar
+Santofimio
+esantofimios@unal.edu.co
+3
+2
+Pepito 
+Perez
+perez@test.com
+4
