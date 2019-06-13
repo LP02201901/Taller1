@@ -1,12 +1,13 @@
-1777*
-#*1
-*#06#
-a123
-12345
-este es un
-ejemplo
-de
-analisis
-lexico
-con
-JFlex
+1032485124
+askjhasfkjlas54564sds4fa5a4asf51as
+Kevin Andrey
+4.8
+15
+4.8
+prueba2@gmail.com.co
+Francisco
+@
+.
+4
+9
+kaherreras@unal.edu.co

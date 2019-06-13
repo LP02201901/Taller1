@@ -31,13 +31,41 @@
  
 /* Inicio de Expresiones regulares */
  
- Digito = [0-9]
- Numero = {Digito} {Digito}*
  Letra = [A-Za-z]
- Palabra = {Letra} {Letra}*
- Simbolo = "*"|"+"|"-"|"/"|"#"
- Espacio = " "
+ Digito5 = [0-5]
+ Digito6 = [6-9]
+
  SaltoDeLinea = \n|\r|\r\n
+ 
+ Cedula2 = {Digito5} | {Digito6}
+ Cedula = {Cedula2}{Cedula2}{Cedula2}{Cedula2}{Cedula2}+
+ 
+ Punto = "."
+ Espacio = " "
+
+ Alfanumerico2 = {Letra} | {Digito5} | {Digito6}
+ Alfanumerico = {Letra} {Alfanumerico2}*
+
+ Dominio2 = "com"|"net"|"edu"|"co"
+ Dominio3 = {Punto} {Dominio2}
+ Dominio = {Dominio3}+ 
+
+ Correo = {Alfanumerico} {Arroba} {Alfanumerico} {Dominio}
+
+
+
+Arroba = "@"
+
+ Palabra = {Letra} {Letra}*
+
+ Nota = {Digito5} {Punto} {Digito5} | {Digito5} {Punto} {Digito6}
+
+ NombreCompuesto = {Palabra} {Espacio} {Palabra} | {Palabra}
+
+ 
+
+ 
+ 
  
 /* Finaliza expresiones regulares */
  
@@ -48,6 +76,92 @@
  
 // Cada regla está formada por una {expresión} espacio {código}
  
+{Letra} {
+ TokenPersonalizado t = new TokenPersonalizado(yytext(), "Letra");
+ this._existenTokens = true;
+ return t;
+}
+
+{Arroba} {
+ TokenPersonalizado t = new TokenPersonalizado(yytext(), "Arroba");
+ this._existenTokens = true;
+ return t;
+}
+
+{Punto} {
+ TokenPersonalizado t = new TokenPersonalizado(yytext(), "Punto");
+ this._existenTokens = true;
+ return t;
+}
+
+{Palabra} {
+ TokenPersonalizado t = new TokenPersonalizado(yytext(), "Palabra");
+ this._existenTokens = true;
+ return t;
+}
+
+{Nota} {
+ TokenPersonalizado t = new TokenPersonalizado(yytext(), "Nota");
+ this._existenTokens = true;
+ return t;
+}
+
+{NombreCompuesto} {
+ TokenPersonalizado t = new TokenPersonalizado(yytext(), "NombreCompuesto");
+ this._existenTokens = true;
+ return t;
+}
+
+{Espacio} {
+ TokenPersonalizado t = new TokenPersonalizado(yytext(), "Espacio");
+ this._existenTokens = true;
+ return t;
+}
+
+{Digito6} {
+ TokenPersonalizado t = new TokenPersonalizado(yytext(), "Digito6");
+ this._existenTokens = true;
+ return t;
+}
+
+
+{Digito5} {
+ TokenPersonalizado t = new TokenPersonalizado(yytext(), "Digito5");
+ this._existenTokens = true;
+ return t;
+}
+
+
+
+{Dominio} {
+ TokenPersonalizado t = new TokenPersonalizado(yytext(), "Dominio");
+ this._existenTokens = true;
+ return t;
+}
+
+
+{Cedula} {
+ TokenPersonalizado t = new TokenPersonalizado(yytext(), "Cedula");
+ this._existenTokens = true;
+ return t;
+}
+
+
+{Correo} {
+ TokenPersonalizado t = new TokenPersonalizado(yytext(), "Correo");
+ this._existenTokens = true;
+ return t;
+}
+
+{SaltoDeLinea} {
+ TokenPersonalizado t = new TokenPersonalizado("Enter", "NUEVA_LINEA");
+ this._existenTokens = true;
+ return t;
+}
+
+
+
+/*
 {Numero} {
  TokenPersonalizado t = new TokenPersonalizado(yytext(), "NUMERO");
  this._existenTokens = true;
@@ -75,3 +189,4 @@
  this._existenTokens = true;
  return t;
 }
+*/
