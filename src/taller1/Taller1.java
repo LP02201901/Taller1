@@ -21,10 +21,11 @@ public class Taller1 {
         try {
 
             // Asignación del nombre de archivo por defecto que usará la aplicación
-            String archivo = "C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\prueba.txt";
+            String archivo = "C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Origen.txt";
 
             // Se trata de leer el archivo y analizarlo en la clase que se ha creado con JFlex
             BufferedReader buffer = new BufferedReader(new FileReader(archivo));
+            //AnalizadorLexico analizadorJFlex = new AnalizadorLexico(buffer);
             AnalizadorLexico analizadorJFlex = new AnalizadorLexico(buffer);
 
             while (true) {

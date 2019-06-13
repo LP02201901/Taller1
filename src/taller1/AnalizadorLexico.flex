@@ -52,20 +52,12 @@
 
  Correo = {Alfanumerico} {Arroba} {Alfanumerico} {Dominio}
 
-
-
-Arroba = "@"
+ Arroba = "@"
 
  Palabra = {Letra} {Letra}*
-
  Nota = {Digito5} {Punto} {Digito5} | {Digito5} {Punto} {Digito6}
 
- NombreCompuesto = {Palabra} {Espacio} {Palabra} | {Palabra}
-
- 
-
- 
- 
+ NombreCompuesto = {Palabra} {Espacio} {Palabra} | {Palabra} 
  
 /* Finaliza expresiones regulares */
  
