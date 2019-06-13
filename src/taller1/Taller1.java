@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Iterator;
+import javax.swing.JOptionPane;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -36,20 +37,20 @@ public class Taller1 {
     public static void fileReader(){
         try {
             // Asignación del nombre de archivo por defecto que usará la aplicación
-<<<<<<< HEAD
-            String archivo = "/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/prueba.txt";
+
+            String archivo = "C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Origen.txt";
             
             // Se trata de leer el archivo y analizarlo en la clase que se ha creado con JFlex
             BufferedReader buffer = new BufferedReader(new FileReader(archivo));
             System.out.println(buffer);
-=======
-            String archivo = "C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Origen.txt";
-
-            // Se trata de leer el archivo y analizarlo en la clase que se ha creado con JFlex
-            BufferedReader buffer = new BufferedReader(new FileReader(archivo));
-            //AnalizadorLexico analizadorJFlex = new AnalizadorLexico(buffer);
->>>>>>> 4acae4d1d329854154fb4b76a1e5b33674ff1992
             AnalizadorLexico analizadorJFlex = new AnalizadorLexico(buffer);
+            
+            String Documento = "";
+            String Nombre = "";
+            String Apellido = "";
+            String Nota="";
+            String Correo = "";
+            int cont=0;
 
             while (true) {
 
@@ -60,7 +61,42 @@ public class Taller1 {
                     break;
                 }
 
-                System.out.println(token.toString());
+                //System.out.println(token.toString());
+                System.out.println(token.getToken());
+                
+                
+                switch(token.getToken())
+                {
+                    case "Cedula":
+                    {
+                        Documento=token.getLexema();
+                    }break;
+                    case "Nombre_Apellido":
+                    {
+                        if(cont==0)
+                        {
+                            Nombre=token.getLexema();   
+                            cont=1;
+                        }else
+                        {
+                            Apellido=token.getLexema();
+                            cont=0;
+                        }
+                    }break;
+                    case "Correo":
+                    {
+                        Correo=token.getLexema();
+                    }break;
+                    case "Nota":
+                    {
+                        Nota=token.getLexema();
+                    }break;
+                }
+                        
+                if(token.getToken().equals("Nota"))
+                {
+                    JOptionPane.showMessageDialog(null, "Datos Capturados.\n\nDocumento: "+Documento+"\nNombre: "+Nombre+"\nApellido: "+Apellido+"\nCorreo: "+Correo+"\nNota: "+Nota);
+                }
             }
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -69,6 +105,7 @@ public class Taller1 {
     public static void main(String[] args) {
         try {
             sheetReaderflex();
+            fileReader();
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -79,13 +116,13 @@ public class Taller1 {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            String rutaArchivoExcel = "/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/ExcelEjemplo.xlsx";
+            String rutaArchivoExcel = "C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\ExcelEjemplo.xlsx";
             FileInputStream inputStream = new FileInputStream(new File(rutaArchivoExcel));
             Workbook workbook = new XSSFWorkbook(inputStream);
             Sheet firstSheet = workbook.getSheetAt(0);
             Iterator iterator = firstSheet.iterator();
             
-            fichero = new FileWriter("/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/prueba.txt",true);
+            fichero = new FileWriter("C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Origen.txt",false);
             pw = new PrintWriter(fichero);
             
             
