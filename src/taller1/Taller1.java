@@ -140,15 +140,23 @@ public class Taller1 {
             doc.open();
             
             doc.add(new Paragraph("UNIVERSIDAD NACIONAL DE COLOMBIA"));
-            doc.add(new Paragraph(""));
-            doc.add(new Paragraph("Reporte de notas finales - LENGUAJES DE PROGRAMACIÓN 2019"));
-            doc.add(new Paragraph(""));
-            doc.add(new Paragraph(""));
-            doc.add(new Paragraph("Nombre: "+nombre));
-            doc.add(new Paragraph("Apellido: "+apellido));
-            doc.add(new Paragraph("Cedula: "+id));
-            doc.add(new Paragraph("E-mail: "+email));
-            doc.add(new Paragraph("Nota: "+nota));
+            doc.add(new Paragraph("SEDE BOGOTÁ"));
+            doc.add(new Paragraph(" "));
+            doc.add(new Paragraph(" "));
+            doc.add(new Paragraph("ASUNTO: Reporte de notas finales - LENGUAJES DE PROGRAMACIÓN 2019"));
+            doc.add(new Paragraph(" "));
+            doc.add(new Paragraph(" "));
+            doc.add(new Paragraph("Señor "+nombre+" "+apellido+"."));
+            doc.add(new Paragraph(" "));
+            doc.add(new Paragraph(" "));
+            doc.add(new Paragraph(" "));
+            doc.add(new Paragraph(" "));
+            doc.add(new Paragraph("Cordial saludo estimado estudiante, "+nombre+" "+apellido+", identificado con número de documento "+id+". Mediante el presente documento le informamos que su calificación final para la asignatura Lenguajes de Programación es: "+nota+"."));
+            doc.add(new Paragraph(" "));
+            doc.add(new Paragraph(" "));
+            doc.add(new Paragraph(" "));
+            doc.add(new Paragraph(" "));
+            doc.add(new Paragraph("Enviado a: "+email));
             doc.close();
         } catch (Exception e) {
             System.out.println("error: "+e);
