@@ -27,6 +27,12 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+
 
 
 public class Taller1 {
@@ -42,7 +48,7 @@ public class Taller1 {
             
             // Se trata de leer el archivo y analizarlo en la clase que se ha creado con JFlex
             BufferedReader buffer = new BufferedReader(new FileReader(archivo));
-            System.out.println(buffer);
+            //System.out.println(buffer);
             AnalizadorLexico analizadorJFlex = new AnalizadorLexico(buffer);
             
             String Documento = "";
@@ -62,7 +68,7 @@ public class Taller1 {
                 }
 
                 //System.out.println(token.toString());
-                System.out.println(token.getToken());
+                //System.out.println(token.getToken());
                 
                 
                 switch(token.getToken())
@@ -95,7 +101,9 @@ public class Taller1 {
                         
                 if(token.getToken().equals("Nota"))
                 {
-                    JOptionPane.showMessageDialog(null, "Datos Capturados.\n\nDocumento: "+Documento+"\nNombre: "+Nombre+"\nApellido: "+Apellido+"\nCorreo: "+Correo+"\nNota: "+Nota);
+                    //JOptionPane.showMessageDialog(null, "Datos Capturados.\n\nDocumento: "+Documento+"\nNombre: "+Nombre+"\nApellido: "+Apellido+"\nCorreo: "+Correo+"\nNota: "+Nota);
+                    pdf(Documento,Nombre,Apellido,Correo,Nota); 
+                    System.out.println("Documento Generado para "+Nombre+" "+Apellido);
                 }
             }
         } catch (Exception e) {
@@ -111,6 +119,41 @@ public class Taller1 {
         }
     }
     
+    public static void crearCarpeta(){
+        String ruta = "C:\\tallerNotas";
+        File crear_carpeta = new File(ruta);
+        if(!crear_carpeta.exists()){
+            crear_carpeta.mkdir();
+            System.out.println("no existia");
+        }else{
+            System.out.println("ya existe");
+        }
+    }
+    
+    public static void pdf(String id,String nombre, String apellido, String email, String nota){
+        String prueba = nombre+"_"+id;
+        //crearCarpeta();
+        try {
+            FileOutputStream arc = new FileOutputStream("Notas/"+prueba+".pdf");//("C:\\tallerNotas/"+prueba+".pdf");
+            Document doc = new Document();
+            PdfWriter.getInstance(doc, arc);
+            doc.open();
+            
+            doc.add(new Paragraph("UNIVERSIDAD NACIONAL DE COLOMBIA"));
+            doc.add(new Paragraph(""));
+            doc.add(new Paragraph("Reporte de notas finales - LENGUAJES DE PROGRAMACIÓN 2019"));
+            doc.add(new Paragraph(""));
+            doc.add(new Paragraph(""));
+            doc.add(new Paragraph("Nombre: "+nombre));
+            doc.add(new Paragraph("Apellido: "+apellido));
+            doc.add(new Paragraph("Cedula: "+id));
+            doc.add(new Paragraph("E-mail: "+email));
+            doc.add(new Paragraph("Nota: "+nota));
+            doc.close();
+        } catch (Exception e) {
+            System.out.println("error: "+e);
+        }
+    }
     public static void sheetReaderflex(){
         
         FileWriter fichero = null;
