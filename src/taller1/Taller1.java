@@ -36,11 +36,19 @@ public class Taller1 {
     public static void fileReader(){
         try {
             // Asignación del nombre de archivo por defecto que usará la aplicación
+<<<<<<< HEAD
             String archivo = "/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/prueba.txt";
             
             // Se trata de leer el archivo y analizarlo en la clase que se ha creado con JFlex
             BufferedReader buffer = new BufferedReader(new FileReader(archivo));
             System.out.println(buffer);
+=======
+            String archivo = "C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Origen.txt";
+
+            // Se trata de leer el archivo y analizarlo en la clase que se ha creado con JFlex
+            BufferedReader buffer = new BufferedReader(new FileReader(archivo));
+            //AnalizadorLexico analizadorJFlex = new AnalizadorLexico(buffer);
+>>>>>>> 4acae4d1d329854154fb4b76a1e5b33674ff1992
             AnalizadorLexico analizadorJFlex = new AnalizadorLexico(buffer);
 
             while (true) {
