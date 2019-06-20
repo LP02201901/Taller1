@@ -54,10 +54,10 @@
 
  Arroba = "@"
 
- Palabra = {Letra} {Letra}*
+ Nombre_Apellido = {Letra} {Letra}*
  Nota = {Digito5} {Punto} {Digito5} | {Digito5} {Punto} {Digito6}
 
- NombreCompuesto = {Palabra} {Espacio} {Palabra} | {Palabra} 
+ NombreCompuesto = {Nombre_Apellido} {Espacio} {Nombre_Apellido} | {Nombre_Apellido} 
  
 /* Finaliza expresiones regulares */
  
@@ -86,8 +86,8 @@
  return t;
 }
 
-{Palabra} {
- TokenPersonalizado t = new TokenPersonalizado(yytext(), "Palabra");
+{Nombre_Apellido} {
+ TokenPersonalizado t = new TokenPersonalizado(yytext(), "Nombre_Apellido");
  this._existenTokens = true;
  return t;
 }
@@ -160,8 +160,8 @@
  return t;
 }
  
-{Palabra} {
- TokenPersonalizado t = new TokenPersonalizado(yytext(), "PALABRA");
+{Nombre_Apellido} {
+ TokenPersonalizado t = new TokenPersonalizado(yytext(), "Nombre_Apellido");
  this._existenTokens = true;
  return t;
 }
