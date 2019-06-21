@@ -32,8 +32,12 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
-
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Row;
 
 public class Taller1 {
 
@@ -113,15 +117,14 @@ public class Taller1 {
     }
     public static void main(String[] args) {
         try {
-            sheetReaderflex();
-            fileReader();
+            excelReaderValidateDistance();
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
     
     public static void crearCarpeta(){
-        String ruta = "C:\\tallerNotas";
+        String ruta = "/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/tallerNotas";
         File crear_carpeta = new File(ruta);
         if(!crear_carpeta.exists()){
             crear_carpeta.mkdir();
@@ -133,9 +136,9 @@ public class Taller1 {
     
     public static void pdf(String id,String nombre, String apellido, String email, String nota){
         String prueba = nombre+"_"+id;
-        //crearCarpeta();
+        crearCarpeta();
         try {
-            FileOutputStream arc = new FileOutputStream("Notas/"+prueba+".pdf");//("C:\\tallerNotas/"+prueba+".pdf");
+            FileOutputStream arc = new FileOutputStream("/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/tallerNotas/"+prueba+".pdf");//("C:\\tallerNotas/"+prueba+".pdf");
             Document doc = new Document();
             PdfWriter.getInstance(doc, arc);
             doc.open();
@@ -168,13 +171,13 @@ public class Taller1 {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            String rutaArchivoExcel = "C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\ExcelEjemplo.xlsx";
+            String rutaArchivoExcel = "/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/ExcelEjemplo.xlsx";
             FileInputStream inputStream = new FileInputStream(new File(rutaArchivoExcel));
             Workbook workbook = new XSSFWorkbook(inputStream);
             Sheet firstSheet = workbook.getSheetAt(0);
             Iterator iterator = firstSheet.iterator();
             
-            fichero = new FileWriter("C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Origen.txt",false);
+            fichero = new FileWriter("/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/Origen.txt",false);
             pw = new PrintWriter(fichero);
             
             
@@ -203,27 +206,109 @@ public class Taller1 {
            }
         }
     }
-    public static void sheetReader(){
+    
+    /**
+     * 
+     * 
+     * 
+     * New
+     * 
+     * 
+     * 
+     * @return 
+     */
+    
+    
+    public static String[][] excelReaderColumn(){
+        /** Cambio se guardan los datos en una matriz de Strings donde la posición
+         * matriz[indice][0] muestra el identificador de cada columna
+         * e indice la cantidad de columnas que existen
+         * 
+         * 
+         */
         try {
             String rutaArchivoExcel = "/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/ExcelEjemplo.xlsx";
             FileInputStream inputStream = new FileInputStream(new File(rutaArchivoExcel));
             Workbook workbook = new XSSFWorkbook(inputStream);
-            Sheet firstSheet = workbook.getSheetAt(0);
-            Iterator iterator = firstSheet.iterator();
-            
-            DataFormatter formatter = new DataFormatter();
-            while (iterator.hasNext()) {
-                Row nextRow = (Row) iterator.next();
-                Iterator cellIterator = nextRow.cellIterator();
-                while(cellIterator.hasNext()) {
-                    Cell cell = (Cell) cellIterator.next();
-                    String contenidoCelda = formatter.formatCellValue(cell);
-                    System.out.println("celda: " + contenidoCelda);
+            Integer control = 0;
+            Integer controli = 0;
+            Sheet sheet  = workbook.getSheetAt(0); // Get Your Sheet.        
+            Iterator<Row> rowIterator = sheet.iterator(); // Traversing over each row of XLSX file
+            for (Row row : sheet) { //For each Row.
+                /**
+                 * Se toma la primera columna y según la misma hace el calculo de la cantidad
+                 * de filas de la matriz
+                 */
+                Cell cell = row.getCell(0); //Get the Cell at the Index /Column you want.
+                if (cell != null){
+                    control++;
                 }
-                
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            String[][] line = new String[sheet.getRow(0).getPhysicalNumberOfCells()][control];
+                while (rowIterator.hasNext()) {                
+                    Row row = rowIterator.next(); // For each row, iterate through each columns
+                    Iterator<Cell> cellIterator = row.cellIterator();
+                    while (cellIterator.hasNext()) {
+                        Cell cell = cellIterator.next();
+                        if(controli < control){
+                            switch (cell.getCellType()) {
+                                case Cell.CELL_TYPE_STRING:
+                                    line[cell.getColumnIndex()][controli] = cell.getRichStringCellValue().getString();                
+                                    break;
+                                case Cell.CELL_TYPE_NUMERIC:
+                                    line[cell.getColumnIndex()][controli] = String.valueOf(cell.getNumericCellValue());
+                                    break;
+                                default:                                
+                            }                       
+                        }
+                    }
+                    controli++;
+                }
+            return line;
+                
+            } catch (Exception e) {
+                e.printStackTrace();              
+                String[][] line = new String[0][0];
+                return line;
         }
     }
+       
+    public static void excelReaderValidateDistance(){
+        /** Funcion que valida la distancia, dependiendo que se requiera 
+          * guarda en un archivo de texto o se toma directamente de la matriz 
+          * el valor evaluado
+          * 
+        */
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        
+        try {
+            fichero = new FileWriter("/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/Origen.txt",false);
+            pw = new PrintWriter(fichero);
+        
+            String[][] data = excelReaderColumn();
+            for(int i = 0;i < data.length; i++){                
+                for(int j = 0;j < data[i].length; j++){
+                    System.out.println(data[i][j]);         
+                    pw.println(data[i][j]);
+                    }   
+                    System.out.println(); 
+                }
+            
+            } catch (Exception e) {
+              
+            System.out.println(e.toString());
+            }finally {
+                try {
+                // Nuevamente aprovechamos el finally para 
+                // asegurarnos que se cierra el fichero.
+                    if (null != fichero)
+                       fichero.close();
+                    } catch (Exception e2) {
+                       e2.printStackTrace();
+                   }
+            }
+    
+    }
+    
 }
