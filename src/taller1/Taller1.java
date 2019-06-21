@@ -32,6 +32,8 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -40,14 +42,11 @@ public class Taller1 {
     /**
      * @param args the command line arguments
      */
+    
+static String RutaOrigen="C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Origen.txt";
     public static void fileReader(){
         try {
-            // Asignación del nombre de archivo por defecto que usará la aplicación
-
-            String archivo = "C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Origen.txt";
-            
-            // Se trata de leer el archivo y analizarlo en la clase que se ha creado con JFlex
-            BufferedReader buffer = new BufferedReader(new FileReader(archivo));
+            BufferedReader buffer = new BufferedReader(new FileReader(RutaOrigen));
             //System.out.println(buffer);
             AnalizadorLexico analizadorJFlex = new AnalizadorLexico(buffer);
             
@@ -59,18 +58,13 @@ public class Taller1 {
             int cont=0;
 
             while (true) {
-
                 // Obtener el token analizado y mostrar su información
                 TokenPersonalizado token = analizadorJFlex.yylex();
-
                 if (!analizadorJFlex.existenTokens()) {
                     break;
                 }
-
                 //System.out.println(token.toString());
-                //System.out.println(token.getToken());
-                
-                
+                //System.out.println(token.getToken());                
                 switch(token.getToken())
                 {
                     case "Cedula":
@@ -97,8 +91,7 @@ public class Taller1 {
                     {
                         Nota=token.getLexema();
                     }break;
-                }
-                        
+                }       
                 if(token.getToken().equals("Nota"))
                 {
                     //JOptionPane.showMessageDialog(null, "Datos Capturados.\n\nDocumento: "+Documento+"\nNombre: "+Nombre+"\nApellido: "+Apellido+"\nCorreo: "+Correo+"\nNota: "+Nota);
@@ -110,7 +103,60 @@ public class Taller1 {
             System.out.println(e.toString());
         }
     }
+    
+    static void Escribir_Archivo(String palabra)
+    {
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try
+        {
+            fichero = new FileWriter(RutaOrigen);
+            pw = new PrintWriter(fichero);
+            pw.println(palabra);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {
+           // Nuevamente aprovechamos el finally para 
+           // asegurarnos que se cierra el fichero.
+           if (null != fichero)
+              fichero.close();
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
+    }
+    
+    static String Verificador_token(String palabra)
+    {
+        Escribir_Archivo(palabra);
+        BufferedReader buffer = null;
+    try {
+        buffer = new BufferedReader(new FileReader(RutaOrigen));
+    } catch (FileNotFoundException ex) {
+        Logger.getLogger(Taller1.class.getName()).log(Level.SEVERE, null, ex);
+    }
+        AnalizadorLexico analizadorJFlex = new AnalizadorLexico(buffer);
+        
+            while (true) {
+            try {
+                // Obtener el token analizado y mostrar su información
+                TokenPersonalizado token = analizadorJFlex.yylex();
+                System.out.println(token.getToken());
+            } catch (IOException ex) {
+                Logger.getLogger(Taller1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                if (!analizadorJFlex.existenTokens()) {
+                    break;
+                }
+                break;
+            }
+            
+        return "";
+    }
     public static void main(String[] args) {
+        Verificador_token("Kevin Andrey");
         try {
             sheetReaderflex();
             fileReader();
