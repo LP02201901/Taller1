@@ -47,8 +47,8 @@ public class Taller1 {
      * @param args the command line arguments
      */
     
-static String RutaOrigen="C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Origen.txt";
-    public static void fileReader(){
+//static String RutaOrigen="C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Origen.txt";
+    public static void fileReader(String RutaOrigen){
         try {
             BufferedReader buffer = new BufferedReader(new FileReader(RutaOrigen));
             // Asignación del nombre de archivo por defecto que usará la aplicación
@@ -101,7 +101,7 @@ static String RutaOrigen="C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Ori
                 if(token.getToken().equals("Nota"))
                 {
                     //JOptionPane.showMessageDialog(null, "Datos Capturados.\n\nDocumento: "+Documento+"\nNombre: "+Nombre+"\nApellido: "+Apellido+"\nCorreo: "+Correo+"\nNota: "+Nota);
-                    pdf(Documento,Nombre,Apellido,Correo,Nota); 
+                    //pdf(Documento,Nombre,Apellido,Correo,Nota); 
                     System.out.println("Documento Generado para "+Nombre+" "+Apellido);
                 }
             }
@@ -110,7 +110,7 @@ static String RutaOrigen="C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Ori
         }
     }
     
-    static void Escribir_Archivo(String palabra)
+    static void Escribir_Archivo(String palabra,String RutaOrigen)
     {
         FileWriter fichero = null;
         PrintWriter pw = null;
@@ -134,9 +134,9 @@ static String RutaOrigen="C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Ori
         }
     }
     
-    static String Verificador_token(String palabra)
+    static String Verificador_token(String palabra,String RutaOrigen)
     {
-        Escribir_Archivo(palabra);
+        Escribir_Archivo(palabra, RutaOrigen);
         BufferedReader buffer = null;
     try {
         buffer = new BufferedReader(new FileReader(RutaOrigen));
@@ -161,17 +161,17 @@ static String RutaOrigen="C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Ori
             
         return "";
     }
-    public static void main(String[] args) {
-        Verificador_token("Kevin Andrey");
+    /*public static void main(String[] args) {
+        Verificador_token("Kevin Andrey","dbfdbfdjn");//se va a pifear
         try {
-            excelReaderValidateDistance();
+            excelReaderValidateDistance("se va a pifear");
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-    }
+    }*/
     
     public static void crearCarpeta(){
-        String ruta = "/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/tallerNotas";
+        String ruta = "C:\\tallerNotas";
         File crear_carpeta = new File(ruta);
         if(!crear_carpeta.exists()){
             crear_carpeta.mkdir();
@@ -181,50 +181,34 @@ static String RutaOrigen="C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Ori
         }
     }
     
-    public static void pdf(String id,String nombre, String apellido, String email, String nota){
-        String prueba = nombre+"_"+id;
-        crearCarpeta();
+    public static void pdf(ArrayList<String> arr, String path, String name){
+        //crearCarpeta();
         try {
-            FileOutputStream arc = new FileOutputStream("/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/tallerNotas/"+prueba+".pdf");//("C:\\tallerNotas/"+prueba+".pdf");
+            FileOutputStream arc = new FileOutputStream(path+"/"+name+".pdf");
             Document doc = new Document();
             PdfWriter.getInstance(doc, arc);
             doc.open();
-            
-            doc.add(new Paragraph("UNIVERSIDAD NACIONAL DE COLOMBIA"));
-            doc.add(new Paragraph("SEDE BOGOTÁ"));
-            doc.add(new Paragraph(" "));
-            doc.add(new Paragraph(" "));
-            doc.add(new Paragraph("ASUNTO: Reporte de notas finales - LENGUAJES DE PROGRAMACIÓN 2019"));
-            doc.add(new Paragraph(" "));
-            doc.add(new Paragraph(" "));
-            doc.add(new Paragraph("Señor "+nombre+" "+apellido+"."));
-            doc.add(new Paragraph(" "));
-            doc.add(new Paragraph(" "));
-            doc.add(new Paragraph(" "));
-            doc.add(new Paragraph(" "));
-            doc.add(new Paragraph("Cordial saludo estimado estudiante, "+nombre+" "+apellido+", identificado con número de documento "+id+". Mediante el presente documento le informamos que su calificación final para la asignatura Lenguajes de Programación es: "+nota+"."));
-            doc.add(new Paragraph(" "));
-            doc.add(new Paragraph(" "));
-            doc.add(new Paragraph(" "));
-            doc.add(new Paragraph(" "));
-            doc.add(new Paragraph("Enviado a: "+email));
+            for (int i = 0; i < arr.size(); i++) {
+                doc.add(new Paragraph(arr.get(i)));
+            }
             doc.close();
         } catch (Exception e) {
             System.out.println("error: "+e);
         }
     }
-    public static void sheetReaderflex(){
+    
+    public static void sheetReaderflex(String RutaOrigen){
         
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            String rutaArchivoExcel = "/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/ExcelEjemplo.xlsx";
+            String rutaArchivoExcel = RutaOrigen;//"/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/ExcelEjemplo.xlsx";
             FileInputStream inputStream = new FileInputStream(new File(rutaArchivoExcel));
             Workbook workbook = new XSSFWorkbook(inputStream);
             Sheet firstSheet = workbook.getSheetAt(0);
             Iterator iterator = firstSheet.iterator();
             
-            fichero = new FileWriter("/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/Origen.txt",false);
+            fichero = new FileWriter(RutaOrigen,false);//("/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/Origen.txt",false);
             pw = new PrintWriter(fichero);
             
             
@@ -266,7 +250,7 @@ static String RutaOrigen="C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Ori
      */
     
     
-    public static String[][] excelReaderColumn(){
+    public static String[][] excelReaderColumn(String RutaOrigen){
         /** Cambio se guardan los datos en una matriz de Strings donde la posición
          * matriz[indice][0] muestra el identificador de cada columna
          * e indice la cantidad de columnas que existen
@@ -274,7 +258,7 @@ static String RutaOrigen="C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Ori
          * 
          */
         try {
-            String rutaArchivoExcel = "/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/ExcelEjemplo.xlsx";
+            String rutaArchivoExcel = RutaOrigen;//"/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/ExcelEjemplo.xlsx";
             FileInputStream inputStream = new FileInputStream(new File(rutaArchivoExcel));
             Workbook workbook = new XSSFWorkbook(inputStream);
             Integer control = 0;
@@ -320,7 +304,7 @@ static String RutaOrigen="C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Ori
         }
     }
        
-    public static void excelReaderValidateDistance(){
+    public static String[][] excelReaderValidateDistance(String RutaOrigen1,String RutaOrigen){
         /** Funcion que valida la distancia, dependiendo que se requiera 
           * guarda en un archivo de texto o se toma directamente de la matriz 
           * el valor evaluado
@@ -330,18 +314,18 @@ static String RutaOrigen="C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Ori
         PrintWriter pw = null;
         
         try {
-            fichero = new FileWriter("/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/Origen.txt",false);
+            fichero = new FileWriter(RutaOrigen1,false);//("/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/Origen.txt",false);
             pw = new PrintWriter(fichero);
         
-            String[][] data = excelReaderColumn();
+            String[][] data = excelReaderColumn(RutaOrigen);
             for(int i = 0;i < data.length; i++){                
                 for(int j = 0;j < data[i].length; j++){
                     System.out.println(data[i][j]);         
                     pw.println(data[i][j]);
-                    }   
-                    System.out.println(); 
-                }
-            
+                }   
+                System.out.println(); 
+            }
+            return data;
             } catch (Exception e) {
               
             System.out.println(e.toString());
@@ -355,7 +339,7 @@ static String RutaOrigen="C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\Ori
                        e2.printStackTrace();
                    }
             }
-    
+        return null;       
     }
     
 }
