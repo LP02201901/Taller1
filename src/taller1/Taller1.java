@@ -35,6 +35,7 @@ import java.io.FileOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -102,7 +103,7 @@ public class Taller1 {
                 {
                     //JOptionPane.showMessageDialog(null, "Datos Capturados.\n\nDocumento: "+Documento+"\nNombre: "+Nombre+"\nApellido: "+Apellido+"\nCorreo: "+Correo+"\nNota: "+Nota);
                     //pdf(Documento,Nombre,Apellido,Correo,Nota); 
-                    System.out.println("Documento Generado para "+Nombre+" "+Apellido);
+                    //System.out.println("Documento Generado para "+Nombre+" "+Apellido);
                 }
             }
         } catch (Exception e) {
@@ -110,7 +111,30 @@ public class Taller1 {
         }
     }
     
-    static void Escribir_Archivo(String palabra,String RutaOrigen)
+    public static void Escribir_Archivo(String palabra,String RutaOrigen) //Sobre escribe
+    {
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try
+        {
+            fichero = new FileWriter(RutaOrigen);
+            pw = new PrintWriter(fichero);
+            pw.println(palabra);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {
+           // Nuevamente aprovechamos el finally para 
+           // asegurarnos que se cierra el fichero.
+           if (null != fichero)
+              fichero.close();
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
+    }
+    public static void Agregar_A_Archivo(String palabra,String RutaOrigen) //Agrega al archivo
     {
         FileWriter fichero = null;
         PrintWriter pw = null;
@@ -134,9 +158,12 @@ public class Taller1 {
         }
     }
     
-    static String Verificador_token(String palabra,String RutaOrigen)
+    public static String Verificador_token(String palabra,String RutaOrigen)
     {
+        String token1="";
+        int cont=0;
         Escribir_Archivo(palabra, RutaOrigen);
+        
         BufferedReader buffer = null;
     try {
         buffer = new BufferedReader(new FileReader(RutaOrigen));
@@ -149,7 +176,9 @@ public class Taller1 {
             try {
                 // Obtener el token analizado y mostrar su información
                 TokenPersonalizado token = analizadorJFlex.yylex();
-                System.out.println(token.getToken());
+                token1=token.getToken();
+                //System.out.println(token.getToken());
+                cont++;
             } catch (IOException ex) {
                 Logger.getLogger(Taller1.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -159,10 +188,43 @@ public class Taller1 {
                 break;
             }
             
-        return "";
+        return token1+" - "+cont;
+    }
+    
+    public static List<String> ObtenerTokens(String RutaOrigen)
+    {
+        List<String> listatokens = new ArrayList<String>();
+        String texto="";
+        int cont=0;
+        try {
+            BufferedReader buffer = new BufferedReader(new FileReader(RutaOrigen));
+            AnalizadorLexico analizadorJFlex = new AnalizadorLexico(buffer);
+
+            while (true) {
+                TokenPersonalizado token = analizadorJFlex.yylex();
+
+                if (!analizadorJFlex.existenTokens()) {
+                    break;
+                }
+                if(token.getToken().equals("Token"))
+                {
+                    cont++;
+                    //System.out.println("Token encontrado: "+token.getLexema());
+                    listatokens.add(""+token.getLexema());
+                }
+                texto+=token.getLexema();
+                //System.out.println(token.toString());
+            }
+        } catch (Exception e) {
+            //System.out.println(e.toString());
+        }
+        //System.out.println(cont+" encontrados");
+        //listatokens.add(texto);
+        return listatokens;
+        
     }
     /*public static void main(String[] args) {
-        Verificador_token("Kevin Andrey","dbfdbfdjn");//se va a pifear
+        Verificador_token("Kevin Andrey","dbfdbfdjn");
         try {
             excelReaderValidateDistance("se va a pifear");
         } catch (Exception e) {
@@ -175,14 +237,18 @@ public class Taller1 {
         File crear_carpeta = new File(ruta);
         if(!crear_carpeta.exists()){
             crear_carpeta.mkdir();
-            System.out.println("no existia");
+            //System.out.println("no existia");
         }else{
-            System.out.println("ya existe");
+            //System.out.println("ya existe");
         }
     }
     
-    public static void pdf(ArrayList<String> arr, String path, String name){
+    //public static void pdf(ArrayList<String> arr, String path, String name){
+    public static void pdf(String a, String path, String name){
         //crearCarpeta();
+        //ArrayList<String> arr = a.split("\n");
+        a=a.replace("\n", "\n ");
+        List<String> arr = Arrays.asList(a.split("\n"));
         try {
             FileOutputStream arc = new FileOutputStream(path+"/"+name+".pdf");
             Document doc = new Document();
@@ -193,7 +259,7 @@ public class Taller1 {
             }
             doc.close();
         } catch (Exception e) {
-            System.out.println("error: "+e);
+            System.out.println("error en pdf: "+e);
         }
     }
     
@@ -320,15 +386,15 @@ public class Taller1 {
             String[][] data = excelReaderColumn(RutaOrigen);
             for(int i = 0;i < data.length; i++){                
                 for(int j = 0;j < data[i].length; j++){
-                    System.out.println(data[i][j]);         
+                    //System.out.println(data[i][j]);         
                     pw.println(data[i][j]);
                 }   
-                System.out.println(); 
+                //System.out.println(); 
             }
             return data;
             } catch (Exception e) {
               
-            System.out.println(e.toString());
+            //System.out.println(e.toString());
             }finally {
                 try {
                 // Nuevamente aprovechamos el finally para 
