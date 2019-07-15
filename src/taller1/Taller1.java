@@ -171,7 +171,7 @@ public class Taller1 {
     }*/
     
     public static void crearCarpeta(){
-        String ruta = "C:\\tallerNotas";
+        String ruta = "/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/tallerNotas";
         File crear_carpeta = new File(ruta);
         if(!crear_carpeta.exists()){
             crear_carpeta.mkdir();

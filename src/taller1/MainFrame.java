@@ -325,7 +325,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ayudaItem1ActionPerformed
 
     private void crearPdfButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearPdfButtonActionPerformed
-        String path = "C://Users//User.LENOVO//Documents//NetBeansProjects//Taller1-master1//src//taller1//Origen.txt";
+        String path = "/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/Origen.txt";
         String path1 =pathText1.getText();
         String path2 =pathText.getText();
         String planti =plantillaArea.getText();
@@ -419,7 +419,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buscarButton1ActionPerformed
 
     private void crearPdfButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearPdfButton1ActionPerformed
-        String path = "C://Users//User.LENOVO//Documents//NetBeansProjects//Taller1-master1//src//taller1//Origen.txt";
+        String path = "/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/Origen.txt";
         String path1 =pathText1.getText();
         String path2 =pathText.getText();
         String planti =plantillaArea1.getText();
@@ -481,7 +481,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private ArrayList<String> lectorPlantilla(String p){
         ArrayList<String> lc1 = new ArrayList<>();
-        String[] parts= p.split("\n");
+        String[] parts= p.split(" ");
         lc1.addAll(Arrays.asList(parts));
         for (int i = 0; i < lc1.size(); i++) {
             System.out.println(lc1.get(i));
