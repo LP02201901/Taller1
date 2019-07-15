@@ -1,0 +1,23 @@
+Universidad Nacional de Colombia
+Sede Bogota
+
+
+Programa Ingenieria de Sistemas y Computacion.
+Lenguajes de Programacion 2019-I
+
+
+Buen dia.
+
+
+Estimado <<Nombre>> <<Apellido>> Felicitaciones y que los exitos sigan de tu lado, ahora trazate nuevos objetivos pues los ganadores nunca se detienen.
+La nota acumulada para la asignatura es: <<Nota>>
+
+
+
+Gracias.
+
+
+Cordialmente.
+<<Profesor>>
+NombreArchivoNotas primer semestre <<Nombre>>
+

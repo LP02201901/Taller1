@@ -1,1 +1,36 @@
-Cedula
+cedula
+1.0654542123E10
+7.95445612E8
+1.032485124E9
+nombre
+Elmar
+Pepito 
+Andrey
+apelido
+Santofimio
+Perez
+Herrera
+nota
+2.0
+4.2
+5.0
+correo
+esantofimios@unal.edu.co
+perez@test.com
+kaherreras@unal.edu.co
+color 
+Rojo
+Blanco
+Azul
+regalo
+carbon
+arroz
+carbon
+mensaje
+va a perder
+no llego ayer
+no entiendo su codigo
+Profesor
+Manuel
+Pablo
+Pedro

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.8" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar">
       <SubComponents>
@@ -77,7 +77,10 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jSeparator1" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                          <Component id="jSeparator1" max="32767" attributes="0"/>
+                      </Group>
                       <Group type="102" attributes="0">
                           <Component id="pathText" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -160,10 +163,33 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jScrollPane1" min="-2" pref="329" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="savePlantiButton" max="32767" attributes="0"/>
-                                      <Component id="crearPdfButton" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="savePlantiButton" max="32767" attributes="0"/>
+                                              <Component id="crearPdfButton" max="32767" attributes="0"/>
+                                              <Component id="Nombrepdf" alignment="0" max="32767" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="chkcorreo" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="txtcorreo" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
                                   </Group>
                               </Group>
                               <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -180,9 +206,23 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
+                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="Nombrepdf" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                                   <Component id="crearPdfButton" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="savePlantiButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="chkcorreo" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="txtcorreo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <Component id="jScrollPane1" min="-2" pref="295" max="-2" attributes="0"/>
                           </Group>
@@ -203,6 +243,7 @@
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="5"/>
+                        <Property name="text" type="java.lang.String" value="Universidad Nacional de Colombia&#xa;Sede Bogot&#xe1;&#xa;&#xa;&#xa;Programa Ingenier&#xed;a de Sistemas y Computaci&#xf3;n.&#xa;Lenguajes de Programaci&#xf3;n 2019-I&#xa;&#xa;&#xa;Buen dia.&#xa;&#xa;&#xa;Estimado &lt;&lt;Nombre&gt;&gt; &lt;&lt;Apellido&gt;&gt; Felicitaciones y que los &#xe9;xitos sigan de tu lado, ahora tr&#xe1;zate nuevos objetivos pues los ganadores nunca se detienen.&#xa;La nota acumulada para la asignatura es: &lt;&lt;Nota&gt;&gt;&#xa;&#xa;&#xa;&#xa;Gracias.&#xa;&#xa;&#xa;Cordialmente.&#xa;&lt;&lt;Profesor&gt;&gt;"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -217,7 +258,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel2">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Introduzca la Plantilla"/>
+                    <Property name="text" type="java.lang.String" value="Introduzca la Plantilla / Texto entre &lt;&lt;&gt;&gt; se tomar&#xe1; como campo a reemplazar a partir del excel"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="savePlantiButton">
@@ -227,6 +268,50 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="savePlantiButtonActionPerformed"/>
                   </Events>
+                </Component>
+                <Component class="javax.swing.JTextField" name="Nombrepdf">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Notas &lt;&lt;Nombre&gt;&gt;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NombrepdfActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel5">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Nombre de Archivo"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkcorreo">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Enviar correo electr&#xf3;nico"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkcorreoActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JTextField" name="txtcorreo">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Correo"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtcorreoActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel6">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="&lt;&lt;"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel7">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="&gt;&gt;"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel8">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Etiqueta Correo"/>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
@@ -249,7 +334,7 @@
                                   <Component id="jScrollPane2" min="-2" pref="329" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="buscarButton1" pref="111" max="32767" attributes="0"/>
+                                      <Component id="buscarButton1" pref="153" max="32767" attributes="0"/>
                                       <Component id="crearPdfButton1" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
@@ -324,6 +409,9 @@
           </SubComponents>
         </Container>
         <Component class="javax.swing.JTextField" name="pathText">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="C:\u005cUsers\u005cAndrey\u005cDesktop\u005cTaller1\u005cPDF&apos;s" containsInvalidXMLChars="true"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pathTextActionPerformed"/>
           </Events>
@@ -340,12 +428,15 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Direccion de creacion de PDF"/>
+            <Property name="text" type="java.lang.String" value="Direccion de creacion de PDF (Donde se guardar&#xe1;n los archivos)"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator2">
         </Component>
         <Component class="javax.swing.JTextField" name="pathText1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="C:\u005cUsers\u005cAndrey\u005cDesktop\u005cTaller1\u005csrc\u005ctaller1\u005cExcelEjemplo.xlsx" containsInvalidXMLChars="true"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pathText1ActionPerformed"/>
           </Events>
@@ -360,7 +451,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Direccion del Excel"/>
+            <Property name="text" type="java.lang.String" value="Direccion del Excel (Archivo con la respectiva lista)"/>
           </Properties>
         </Component>
       </SubComponents>

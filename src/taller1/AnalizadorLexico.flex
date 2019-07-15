@@ -60,7 +60,11 @@
  Nota = {Digito5} {Punto} {Digito5} | {Digito5} {Punto} {Digito6}
 
  NombreCompuesto = {Nombre_Apellido} {Espacio} {Nombre_Apellido} | {Nombre_Apellido} 
- 
+ Guion="-"
+ Coma=","
+ DosPuntos=":"
+ //Otro = .*
+ Token = "<<" {Letra}* ">>"
 /* Finaliza expresiones regulares */
  
 %%
@@ -148,39 +152,34 @@
 }
 
 {SaltoDeLinea} {
- TokenPersonalizado t = new TokenPersonalizado("Enter", "NUEVA_LINEA");
+ TokenPersonalizado t = new TokenPersonalizado("\n", "NUEVA_LINEA");
  this._existenTokens = true;
  return t;
 }
 
-
-
+{Token} {
+ TokenPersonalizado t = new TokenPersonalizado(yytext(), "Token");
+ this._existenTokens = true;
+ return t;
+}
+{Guion} {
+ TokenPersonalizado t = new TokenPersonalizado(yytext(), "Guion");
+ this._existenTokens = true;
+ return t;
+}
+{Coma} {
+ TokenPersonalizado t = new TokenPersonalizado(yytext(), "Coma");
+ this._existenTokens = true;
+ return t;
+}
+{DosPuntos} {
+ TokenPersonalizado t = new TokenPersonalizado(yytext(), "DosPuntos");
+ this._existenTokens = true;
+ return t;
+}
 /*
-{Numero} {
- TokenPersonalizado t = new TokenPersonalizado(yytext(), "NUMERO");
+{Otro} {
+ TokenPersonalizado t = new TokenPersonalizado(yytext(), "Otro");
  this._existenTokens = true;
  return t;
-}
- 
-{Nombre_Apellido} {
- TokenPersonalizado t = new TokenPersonalizado(yytext(), "Nombre_Apellido");
- this._existenTokens = true;
- return t;
-}
- 
-{Simbolo} {
- TokenPersonalizado t = new TokenPersonalizado(yytext(), "SIMBOLO");
- this._existenTokens = true;
- return t;
-}
- 
-{Espacio} {
- // Ignorar cuando se ingrese un espacio
-}
- 
-{SaltoDeLinea} {
- TokenPersonalizado t = new TokenPersonalizado("Enter", "NUEVA_LINEA");
- this._existenTokens = true;
- return t;
-}
-*/
+}*/

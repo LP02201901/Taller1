@@ -16,10 +16,18 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.Reader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -66,6 +74,13 @@ public class MainFrame extends javax.swing.JFrame {
         crearPdfButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         savePlantiButton = new javax.swing.JButton();
+        Nombrepdf = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        chkcorreo = new javax.swing.JCheckBox();
+        txtcorreo = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         plantillaPrede = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         plantillaArea1 = new javax.swing.JTextArea();
@@ -93,6 +108,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         plantillaArea.setColumns(20);
         plantillaArea.setRows(5);
+        plantillaArea.setText("Universidad Nacional de Colombia\nSede Bogotá\n\n\nPrograma Ingeniería de Sistemas y Computación.\nLenguajes de Programación 2019-I\n\n\nBuen dia.\n\n\nEstimado <<Nombre>> <<Apellido>> Felicitaciones y que los éxitos sigan de tu lado, ahora trázate nuevos objetivos pues los ganadores nunca se detienen.\nLa nota acumulada para la asignatura es: <<Nota>>\n\n\n\nGracias.\n\n\nCordialmente.\n<<Profesor>>");
         jScrollPane1.setViewportView(plantillaArea);
 
         crearPdfButton.setText("Crear PDF");
@@ -102,7 +118,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Introduzca la Plantilla");
+        jLabel2.setText("Introduzca la Plantilla / Texto entre <<>> se tomará como campo a reemplazar a partir del excel");
 
         savePlantiButton.setText("Guardar Plantilla");
         savePlantiButton.addActionListener(new java.awt.event.ActionListener() {
@@ -110,6 +126,35 @@ public class MainFrame extends javax.swing.JFrame {
                 savePlantiButtonActionPerformed(evt);
             }
         });
+
+        Nombrepdf.setText("Notas <<Nombre>>");
+        Nombrepdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NombrepdfActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Nombre de Archivo");
+
+        chkcorreo.setText("Enviar correo electrónico");
+        chkcorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkcorreoActionPerformed(evt);
+            }
+        });
+
+        txtcorreo.setText("Correo");
+        txtcorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtcorreoActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("<<");
+
+        jLabel7.setText(">>");
+
+        jLabel8.setText("Etiqueta Correo");
 
         javax.swing.GroupLayout plantillaPerzoLayout = new javax.swing.GroupLayout(plantillaPerzo);
         plantillaPerzo.setLayout(plantillaPerzoLayout);
@@ -120,10 +165,27 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(plantillaPerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(plantillaPerzoLayout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(plantillaPerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(savePlantiButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(crearPdfButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(plantillaPerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(plantillaPerzoLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(plantillaPerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(savePlantiButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(crearPdfButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(Nombrepdf)
+                                    .addGroup(plantillaPerzoLayout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel5))
+                                    .addComponent(chkcorreo)))
+                            .addGroup(plantillaPerzoLayout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addGroup(plantillaPerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel8)
+                                    .addGroup(plantillaPerzoLayout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel7))))))
                     .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -135,9 +197,22 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(plantillaPerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(plantillaPerzoLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Nombrepdf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
                         .addComponent(crearPdfButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(savePlantiButton))
+                        .addComponent(savePlantiButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(chkcorreo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(plantillaPerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(82, 82, 82))
         );
@@ -176,7 +251,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(plantillaPredeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buscarButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                            .addComponent(buscarButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                             .addComponent(crearPdfButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(plantillaPredeLayout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -200,6 +275,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         Pestanas.addTab("Plantillas Predeterminadas", plantillaPrede);
 
+        pathText.setText("C:\\Users\\Andrey\\Desktop\\Taller1\\PDF's");
         pathText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pathTextActionPerformed(evt);
@@ -213,8 +289,9 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Direccion de creacion de PDF");
+        jLabel1.setText("Direccion de creacion de PDF (Donde se guardarán los archivos)");
 
+        pathText1.setText("C:\\Users\\Andrey\\Desktop\\Taller1\\src\\taller1\\ExcelEjemplo.xlsx");
         pathText1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pathText1ActionPerformed(evt);
@@ -228,7 +305,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("Direccion del Excel");
+        jLabel4.setText("Direccion del Excel (Archivo con la respectiva lista)");
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -240,7 +317,9 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(jSeparator1))
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addComponent(pathText)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -323,13 +402,34 @@ public class MainFrame extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Todos los tokens ingresados deben estar separados por UN SALTO DE LINEA."
                 + "\n Ejemplo:\n nombre\n apellido\n identificacion\n");
     }//GEN-LAST:event_ayudaItem1ActionPerformed
-
+private static final String ORIGINAL
+        = "ÁáÉéÍíÓóÚúÑñÜü";
+private static final String REPLACEMENT
+        = "AaEeIiOoUuNnUu"; 
+public static String stripAccents(String str) {
+    if (str == null) {
+        return null;
+    }
+    char[] array = str.toCharArray();
+    for (int index = 0; index < array.length; index++) {
+        int pos = ORIGINAL.indexOf(array[index]);
+        if (pos > -1) {
+            array[index] = REPLACEMENT.charAt(pos);
+        }
+    }
+    return new String(array);
+}
     private void crearPdfButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearPdfButtonActionPerformed
+
         String path = "/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/Origen.txt";
+        String origen2 = "/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/Origen2.txt";
+        String origen3 = "/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/Origen3.txt";
+
         String path1 =pathText1.getText();
         String path2 =pathText.getText();
         String planti =plantillaArea.getText();
         ArrayList<String> aux2 = lectorPlantilla(planti);
+        
         ArrayList<String> aux3 = new ArrayList<>();
         ArrayList<String> aux4 = new ArrayList<>();
         String[][] aux = new String[0][0];
@@ -346,32 +446,204 @@ public class MainFrame extends javax.swing.JFrame {
                         aux2.set(i,"\n");
                         bol=true;
                     }*/
-                    if(y<=3){
-                        Taller1.Verificador_token(aux2.get(i),path);//se va a pifear
-                        System.out.println(y+" "+aux2.get(i)+"_"+aux[j][0]);
+                    //if(y<=3){
+                    if(1==1){
+                        /*String tok=Taller1.Verificador_token(aux2.get(i),path);
+                        JOptionPane.showMessageDialog(null, "Verificado "+aux2.get((i))+" es: "+tok);*/
+                        
+                        //System.out.println(y+" "+aux2.get(i)+"_"+aux[j][0]);
                         for (int k = 1; k < aux[j].length; k++) {
-                            System.out.println(aux3.add(aux[j][k])+" tok");
+                            //System.out.println(aux3.add(aux[j][k])+" tok");
                         }
                     }
                 }
             }
+            Taller1.Escribir_Archivo("", origen2);//Inicializa archivo origen 2
+            String Textocompleto="";
+            aux2.add("NombreArchivo"+Nombrepdf.getText());
+            for (String elemento: aux2)
+            {
+                Textocompleto+=elemento;
+                Textocompleto+="\n";
+            }
+            Taller1.Escribir_Archivo( stripAccents(Textocompleto), origen2);//Guarda plantilla original
+            
+            //Ahora debemos obtener los tokens...
+            //System.out.println("Obtener tokens");
+            List<String> listatokens = new ArrayList<String>();
+            listatokens=Taller1.ObtenerTokens(origen2);
+            //listatokens.add(Nombrepdf.getText());
+            
+            //Muestra los tokens obtenidos
+            String Plantillas[]=new String[aux[0].length];
+            
+            
+            for (int lista = 1; lista < aux[0].length; lista++) {
+                String NombreFichero="";
+                String Plantilla=Textocompleto;
+                //System.out.println("Comienza para la fila "+lista);
+            for (String elemento: listatokens)
+            {
+                //Ahora buscamos en que columna está el token
+                StringMetric metric = new Damerau();
+
+                int distancia=1000;
+                int indice=0;
+                int auxiliar;
+
+                //String token=listatokens.get(0).substring(2);
+                String token=elemento.substring(2);
+                token=token.substring(0,token.length()-2);
+                //System.out.println("Buscando Token "+token);
+                for (int i = 0; i < aux.length; i++) {
+
+                        if(aux[i][0].equals(token))
+                        {
+                            //System.out.println("Encontrado"+aux[i][0]);
+                            distancia=0;
+                            indice=i;
+                            break;
+                        }else
+                        {
+                            auxiliar=metric.distance(token, aux[i][0]);
+                            if(auxiliar<distancia)
+                            {
+                                indice=i;
+                                distancia=auxiliar;
+                            }
+                        }
+                        //System.out.println("No"+aux[i][0]);
+                }
+
+                //System.out.println("El token reconocido es: "+aux[indice][0]+" con una distancia de: "+distancia);
+                
+                //System.out.println("Intentando colocar "+aux[indice][lista]+" en <<"+token+">>");
+                
+                    
+                    Plantilla=Plantilla.replace("<<"+token+">>", ""+aux[indice][lista]);
+                
+            }
+            //System.out.println("La plantilla generada es: "+Plantilla);
+            NombreFichero=Plantilla.substring(Plantilla.indexOf("NombreArchivo")+13);
+            Plantilla=Plantilla.substring(0,Plantilla.indexOf("NombreArchivo"));
+            //NombreFichero=NombreFichero.replace(" ", "");
+            NombreFichero=NombreFichero.replace("\n", "");
+            Plantillas[lista]=Plantilla;
+            
+            //JOptionPane.showMessageDialog(null, "El nombre del archivo será: "+NombreFichero+"Hola");
+            /*List<String> listaauxiliarnombre = new ArrayList<String>();
+            listaauxiliarnombre.add(Nombrepdf.getText());
+            Taller1.Escribir_Archivo(Nombrepdf.getText(), origen3);
+            listaauxiliarnombre=Taller1.ObtenerTokens(origen3);
+            
+            
+            JOptionPane.showMessageDialog(null, listaauxiliarnombre.get(0));*/
+            Taller1.pdf(Plantillas[lista], path2, ""+NombreFichero);
+            String Plantillamail=Plantilla.replace("\n", "<br>");
+            if(chkcorreo.isSelected())
+            {
+                int distancia2=10000;
+                int indice2=0;
+                int auxiliar2=0;
+                StringMetric metric = new Damerau();
+                String Correo="";
+                for (int i = 0; i < aux.length; i++) {
+                    if(aux[i][0].equals(txtcorreo.getText()))
+                        {
+                            //System.out.println("Encontrado"+aux[i][0]);
+                            distancia2=0;
+                            indice2=i;
+                            break;
+                        }else
+                        {
+                            auxiliar2=metric.distance(txtcorreo.getText(), aux[i][0]);
+                            if(auxiliar2<distancia2)
+                            {
+                                indice2=i;
+                                distancia2=auxiliar2;
+                            }
+                        }
+                    
+                }
+                //System.out.println("El más cercano a "+txtcorreo.getText()+" es: "+aux[indice2][0]+" con una distancia de: "+distancia2+" El correo será enviado a: "+aux[indice2][lista]);
+                send(aux[indice2][lista], Plantillamail, NombreFichero);   
+            }
+            
+            }
+            JOptionPane.showMessageDialog(null, "Archivos generados satisffactoriamente en la carpeta: "+path2);
+            
+            
 //C:\Users\User.LENOVO\Documents\NetBeansProjects\Taller1-master1\src\taller1\ExcelEjemplo.xlsx
 //C:\Users\User.LENOVO\Documents\Scanned Documents
+//System.out.println("###########################################");
         } catch (Exception e) {
-            System.out.println(e.toString());
+            //System.out.println(e.toString());
         }
-        int d = aux[0].length;
+        
+        
+        /*int d = aux[0].length;
         for (int i = 0; i < d; i++){
             for (int j = i; j < aux3.size(); j=j+aux[0].length-1) {
                 aux4.add(aux3.get(j));
-                System.out.println(j);
+                //System.out.println(j);
             }
-            String nombre = aux4.get(0)+"_"+aux4.get(1);
-            Taller1.pdf(aux4, path2, nombre);
-            aux4.clear();
+            try{
+                String nombre = aux4.get(0)+"_"+aux4.get(1);
+                Taller1.pdf(aux4, path2, nombre);
+                
+                
+                aux4.clear();
+            }catch(Exception e)
+            {
+                System.out.println("Error al crear pdf's ("+e.toString()+")");
+            }
         }
+        */
+        
+        
+        
     }//GEN-LAST:event_crearPdfButtonActionPerformed
-
+public static void send(String correo, String Texto, String Asunto) throws IOException {
+        URL url = new URL("http://ipsjcordoba.com/Citas/Mailer.php");
+        Map<String, Object> params = new LinkedHashMap<>();
+ 
+        params.put("Host","mail.ipsjcordoba.com");
+        params.put("From","no-responder@ipsjcordoba.com");
+        params.put("Password","O!od]#+[I5QV");
+        params.put("Business","LP-02");
+        params.put("Web","https://ipsjcordoba.com");
+        params.put("Subject",Asunto);
+        params.put("Message",Texto);
+        params.put("To",correo);
+ 
+        StringBuilder postData = new StringBuilder();
+        for (Map.Entry<String, Object> param : params.entrySet()) {
+            if (postData.length() != 0)
+                postData.append('&');
+            postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+            postData.append('=');
+            postData.append(URLEncoder.encode(String.valueOf(param.getValue()),
+                    "UTF-8"));
+        }
+        byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+ 
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Content-Type",
+                "application/x-www-form-urlencoded");
+        conn.setRequestProperty("Content-Length",
+                String.valueOf(postDataBytes.length));
+        conn.setDoOutput(true);
+        conn.getOutputStream().write(postDataBytes);
+ 
+        Reader in = new BufferedReader(new InputStreamReader(
+                conn.getInputStream(), "UTF-8"));
+        for (int c = in.read(); c != -1; c = in.read())
+        {
+            //System.out.print((char) c);
+        }
+    }
+ 
     private void pathTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pathTextActionPerformed
@@ -442,9 +714,9 @@ public class MainFrame extends javax.swing.JFrame {
                     }*/
                     if(y<=3){
                         Taller1.Verificador_token(aux2.get(i),path);//se va a pifear
-                        System.out.println(y+" "+aux2.get(i)+"_"+aux[j][0]);
+                       // System.out.println(y+" "+aux2.get(i)+"_"+aux[j][0]);
                         for (int k = 1; k < aux[j].length; k++) {
-                            System.out.println(aux3.add(aux[j][k])+" tok");
+                        //    System.out.println(aux3.add(aux[j][k])+" tok");
                         }
                     }
                 }
@@ -452,16 +724,16 @@ public class MainFrame extends javax.swing.JFrame {
 //C:\Users\User.LENOVO\Documents\NetBeansProjects\Taller1-master1\src\taller1\ExcelEjemplo.xlsx
 //C:\Users\User.LENOVO\Documents\Scanned Documents
         } catch (Exception e) {
-            System.out.println(e.toString());
+          //  System.out.println(e.toString());
         }
         int d = aux[0].length;
         for (int i = 0; i < d; i++){
             for (int j = i; j < aux3.size(); j=j+aux[0].length-1) {
                 aux4.add(aux3.get(j));
-                System.out.println(j);
+               // System.out.println(j);
             }
             String nombre = aux4.get(0)+"_"+aux4.get(1);
-            Taller1.pdf(aux4, path2, nombre);
+            //Taller1.pdf(aux4, path2, nombre);
             aux4.clear();
         }
     }//GEN-LAST:event_crearPdfButton1ActionPerformed
@@ -479,13 +751,27 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_excelDirButtonActionPerformed
 
+    private void NombrepdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombrepdfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NombrepdfActionPerformed
+
+    private void chkcorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkcorreoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chkcorreoActionPerformed
+
+    private void txtcorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcorreoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcorreoActionPerformed
+
     private ArrayList<String> lectorPlantilla(String p){
         ArrayList<String> lc1 = new ArrayList<>();
         String[] parts= p.split(" ");
         lc1.addAll(Arrays.asList(parts));
+        //System.out.println("Inicial Lector De Plantilla");
         for (int i = 0; i < lc1.size(); i++) {
-            System.out.println(lc1.get(i));
+          //  System.out.println(lc1.get(i));
         }
+        //System.out.println("Finaliza Lector De Plantilla");
         return lc1;
     }
     
@@ -496,7 +782,7 @@ public class MainFrame extends javax.swing.JFrame {
         BufferedReader b = new BufferedReader(f);
         while((cadena = b.readLine())!=null) {
             aux=aux+cadena+"\n";
-            System.out.println(cadena);
+           // System.out.println(cadena);
         }
         b.close();
         return aux;
@@ -549,11 +835,13 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Nombrepdf;
     private javax.swing.JTabbedPane Pestanas;
     private javax.swing.JMenuItem ayudaItem1;
     private javax.swing.JMenuItem ayudaItem2;
     private javax.swing.JMenu ayudaMenu;
     private javax.swing.JButton buscarButton1;
+    private javax.swing.JCheckBox chkcorreo;
     private javax.swing.JButton crearPdfButton;
     private javax.swing.JButton crearPdfButton1;
     private javax.swing.JButton excelDirButton;
@@ -561,6 +849,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -575,6 +867,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel plantillaPrede;
     private javax.swing.JButton savePlantiButton;
     private javax.swing.JButton savedirButton;
+    private javax.swing.JTextField txtcorreo;
     // End of variables declaration//GEN-END:variables
 
     private static int minimum(int a, int b, int c) {

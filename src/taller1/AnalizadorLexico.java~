@@ -7,9 +7,13 @@
  * <a href="http://www.jflex.de/">JFlex</a> 1.7.0
  * from the specification file <tt>/Users/Sunny/Documents/Unal/201901/Lenguajes de Programacion/Taller1/Taller1/src/taller1/AnalizadorLexico.flex</tt>
  */
+<<<<<<< HEAD
 
 package taller1;
 
+=======
+package taller1;
+>>>>>>> 15dd45dd31931b90236ff97fb30c6f1ddc5fcab5
 public class AnalizadorLexico {
 
   /** This character denotes the end of file */
